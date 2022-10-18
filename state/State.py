@@ -15,7 +15,8 @@ class State:
     }
 
     def __init__(self, initial_state=0):
-        self.cost = 1
+        self.cost = 0
+        self.depth = 0
         self.state = initial_state
         self.zero_place = self.get_zero_place(initial_state)
 
