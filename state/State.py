@@ -15,6 +15,7 @@ class State:
     }
 
     def __init__(self, initial_state=0):
+        self.cost = 1
         self.state = initial_state
         self.zero_place = self.get_zero_place(initial_state)
 
@@ -40,9 +41,9 @@ class State:
             state.state = new_num
             #print('state.state : ' + str(state.state))
             state.zero_place = i
-            print('state.zero_place : ' + str(state.zero_place))
+            #print('state.zero_place : ' + str(state.zero_place))
             neighbour_states.append(state)
-            print('=========================================')
+            #print('=========================================')
 
         return neighbour_states
 
@@ -50,7 +51,7 @@ class State:
 
     def get_zero_place(self, initial_state):
         if initial_state:
-            print("iam in get zero places")
+            #print("iam in get zero places")
             temp_state = initial_state
             temp = 10
             ind = -1
@@ -59,11 +60,48 @@ class State:
                 temp = temp_state%10
                 temp_state = int(temp_state/10)
 
-            print(self.total_puzzle_places - ind - 1)
+           # print(self.total_puzzle_places - ind - 1)
             return self.total_puzzle_places - ind - 1
 
 
+
+#applying Breadth First Search algorithm
+def BFS(start):
+    frontier = [start.state] #queue to hold new nodes
+     
+    explored = [] #list to hold explored nodes
+    
+    parents = {start.state: start.state} #save each node to her parent node
+
+    #while there is new node do BFS
+    while(len(frontier) != 0):
+
+        cur_state = State(frontier.pop(0)) #apply FIFO rule(first input node first out node)
+
+        explored.append(cur_state.state) #the out node is explored
+        
+        #base case if the explored node is the goal node then return succesful 
+        if(cur_state.state == 12345678):
+            return True, explored, frontier
+
+        #get node neighbours
+        neighbours = cur_state.neighbours()
+
+        #go through all the neighbours
+        for i in neighbours:
+            #add only the new node (wasn't explored or added to the frontier before) to the frontier
+            if ((i.state not in frontier) and (i.state not in explored)):
+                parents[i.state] =  cur_state.state #save new node parent
+                frontier.append(i.state) 
+                
+    return False, [], [] #if the frontier is empty then the problem can't be solved
+
+
 if __name__ == "__main__" :
-    state = State(120345678)
-    for s in state.neighbours() :
-        print(s.state)
+    state = State(125340678)
+    solvable, explore, frontier = BFS(state)
+    print(f"is it solvable: {solvable}")
+    print(f"explored values are: {explore}")
+    print(f"frontier is are: {frontier}")
+    #for s in state.neighbours() :
+     #   print(s.state)
