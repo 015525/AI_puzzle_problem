@@ -66,43 +66,7 @@ class State:
 
 
 
-#applying Breadth First Search algorithm
-def BFS(start):
-    frontier = [start.state] #queue to hold new nodes
-     
-    explored = [] #list to hold explored nodes
-    
-    parents = {start.state: start.state} #save each node to her parent node
-
-    #while there is new node do BFS
-    while(len(frontier) != 0):
-
-        cur_state = State(frontier.pop(0)) #apply FIFO rule(first input node first out node)
-
-        explored.append(cur_state.state) #the out node is explored
-        
-        #base case if the explored node is the goal node then return succesful 
-        if(cur_state.state == 12345678):
-            return True, explored, frontier
-
-        #get node neighbours
-        neighbours = cur_state.neighbours()
-
-        #go through all the neighbours
-        for i in neighbours:
-            #add only the new node (wasn't explored or added to the frontier before) to the frontier
-            if ((i.state not in frontier) and (i.state not in explored)):
-                parents[i.state] =  cur_state.state #save new node parent
-                frontier.append(i.state) 
-                
-    return False, [], [] #if the frontier is empty then the problem can't be solved
-
-
 if __name__ == "__main__" :
     state = State(125340678)
-    solvable, explore, frontier = BFS(state)
-    print(f"is it solvable: {solvable}")
-    print(f"explored values are: {explore}")
-    print(f"frontier is are: {frontier}")
     #for s in state.neighbours() :
      #   print(s.state)
