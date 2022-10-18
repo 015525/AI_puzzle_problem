@@ -18,10 +18,15 @@ class comparable_state:
 
 
 # p = PriorityQueue()
-# print(State)
-# p.put(comparable_state(State( 1)))
-# p.put(comparable_state(State(  2)))
-# p.put(comparable_state(State( 3)))
+# k = State(1)
+# k.cost = 3
+# p.put(comparable_state(k))
+# n = State(1)
+# n.cost = 4
+# p.put(comparable_state(n))
+# f = State(1)
+# f.cost = 6
+# p.put(comparable_state(f))
 # print(p.get().state.cost)
 # print(p.get().state.cost)
 # print(p.get().state.cost)
