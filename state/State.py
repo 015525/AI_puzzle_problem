@@ -22,6 +22,7 @@ class State:
         #state = State(1234)
         #return state
         neighbour_states = []
+
         for i in self.allowed_ind_moves.get(self.zero_place):
             #print('iam in neighbours')
             desired_ind = self.total_puzzle_places-i-1
