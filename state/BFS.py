@@ -4,8 +4,8 @@ import time
 class BFS:
     goal_state = 12345678                                                   #const value(goal state)
     def __init__(self, start_state):
-        self.parents = {self.start_state.state: self.start_state.state}     #save the parents of each state
-        self.frontier = [self.start_state.state]                            #queue to save each new state 
+        self.parents = {start_state.state: start_state.state}     #save the parents of each state
+        self.frontier = [start_state.state]                            #queue to save each new state 
         self.start_state = start_state                                      #the start state from the user
         self.goal_path = []                                                 #save the final goal path
         self.explored = []                                                  #save the explored states
@@ -44,7 +44,7 @@ class BFS:
 
     
     def get_depth(self):
-        return self.max_depth
+        return len(self.goal_path)-1
     
 
     def get_cost(self):
@@ -64,13 +64,17 @@ class BFS:
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 #test case
-#bfs = BFS(State(182043765))
-#found, explored, frontier, parents, run_time = bfs.search()
+bfs = BFS(State(125340678))
+found, explored, frontier, parents, run_time = bfs.search()
 
-#print(f"is the goal found: {found}")
-#print(f"explored nodes are: {explored}")
-#print(f"goal path list is: ")
-#goal_path = bfs.goal_path
-#print(list(reversed(goal_path)))
-#print(f"the cost of the path is: {bfs.get_cost()}")
-#print(f"run time is: {run_time} sec")
+print(f"is the goal found: {found}")
+if(len(explored) <= 20):
+    print(f"explored nodes are: {explored}")
+else:
+    print(len(explored))
+print(f"goal path list is: ")
+goal_path = bfs.goal_path
+print(list(reversed(goal_path)))
+print(f"the cost of the path is: {bfs.get_cost()}")
+print(f"run time is: {run_time} sec")
+print(f"depth of the tree = {bfs.get_depth()}")
