@@ -3,8 +3,8 @@ from tkinter import ttk
 from astar.solver import solver
 from astar.heuristic.heuristic import manhattan
 from astar.heuristic.heuristic import euclidian
-
-
+from DFS.DFS import DFS
+from state.State import State
 class App(tk.Tk):
     count = 0
 
@@ -61,8 +61,10 @@ class App(tk.Tk):
 
 
 if __name__ == "__main__":
-    a = solver()
-    path, expanded, depth, time = a.solve(142658730, manhattan())
+    # a = solver()
+    # path, expanded, depth, time = a.solve(142658730, manhattan())
+    dfs = DFS(State(125340678))
+    path, expanded, depth, time = dfs.run()
     print(path)
     app = App(path, expanded, depth, time)
     app.mainloop()

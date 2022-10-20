@@ -79,3 +79,4 @@ class Astar:
                     self.add_and_change(state, i)
 
         return False
+
