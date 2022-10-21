@@ -57,10 +57,12 @@ class App(tk.Tk):
             self.solve.config(state=ACTIVE)
             self.input = int(initial)
 
+
     def find_sol(self):
         found, explored, runtime, goal_path = False, [], 0, []
         depth, cost = 0, 0
         choose = self.x.get()
+        self.entry.delete(0, len(str(self.input)))
         if choose == 0:
             bfs = BFS(State(self.input))
             found, explored, runtime, goal_path = bfs.search()

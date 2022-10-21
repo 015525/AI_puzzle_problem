@@ -32,7 +32,10 @@ class Explore(tk.Toplevel):
         index = 0
         for i in range(3):
             for j in range(3):
-                cell = Label(self, text=display[index], font=("Arial", 15), height=3, width=20)
+                t = ""
+                if display[index] != '0':
+                    t = display[index]
+                cell = Label(self, text=t, font=("Arial", 15), height=3, width=20)
                 cell.grid(column=j, row=i, padx=3, pady=3)
                 index += 1
 
