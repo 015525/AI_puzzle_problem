@@ -18,11 +18,6 @@ class noSol(tk.Tk):
         label = Label(self, text = "this problem has no solution", font=("Arial", 25), bg = 'red')
         label.pack(expand=True)
 
-        frame = Frame(self)
-        frame.pack(side = BOTTOM)
-        runtime = Label(frame, text = run_time, font=("Arial", 14))
-        runtime.grid(column=0, row=0)
-
 
 
 if __name__ == '__main__':

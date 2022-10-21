@@ -27,7 +27,7 @@ class BFS:
                 end_time = time.time()  # end search time
                 self.goal_path = self.get_goal_path()  # get the goal path(from start state to goal state)
                 run_time = (end_time - start_time).__round__(10)  # calculate the run time
-                return True, self.explored, self.frontier, self.parents, (run_time)
+                return True, self.explored, run_time, list(reversed(self.goal_path))
 
             neighbours = cur_state.neighbours()  # get all neighbours states
 
@@ -41,7 +41,7 @@ class BFS:
         # if there is no solution found
         end_time = time.time()  # end time of running
         run_time = (end_time - start_time).__round__(10)  # caclculate runtime
-        return False, [], [], {}, run_time  # if no solution return false and empty lists
+        return False, [], run_time, []  # if no solution return false and empty lists
 
     def get_depth(self):
         return len(self.goal_path) - 1
@@ -59,3 +59,16 @@ class BFS:
             self.goal_path.append(cur_state)  # save the new node
 
         return self.goal_path  # return final goal path
+
+
+
+if __name__ == '__main__':
+    bfs = BFS(State(125340678))
+    found, explored, rtime, path = bfs.search()
+
+    print(f"BFS done: {found}")
+    print(f"we search for {len(explored)}")
+    print(f"it took us {rtime} to find solution")
+    print(f"the path of to the goal:")
+    print(path)
+

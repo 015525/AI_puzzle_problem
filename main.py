@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
 
+from AI_puzzle_problem.Answer import mainAnswer
 from AI_puzzle_problem.BFS.BFS import BFS
 from AI_puzzle_problem.state.State import State
 
@@ -57,19 +58,21 @@ class App(tk.Tk):
             self.input = int(initial)
 
     def find_sol(self):
-        found, expanded, frontier, parents, runtime = False, [], [], {}, 0
-        depth, cost, path = 0, 0, []
+        found, explored, runtime, goal_path = False, [], 0, []
+        depth, cost = 0, 0
         choose = self.x.get()
         if choose == 0:
             bfs = BFS(State(self.input))
-            found, expanded, frontier, parents, runtime = bfs.search()
+            found, explored, runtime, goal_path = bfs.search()
             depth = bfs.get_depth()
             cost = bfs.get_cost()
-            path = bfs.goal_path
 
 
-
-
+        if(found == False):
+            messagebox.showerror(title='error', message="this problem has no solution")
+            self.solve.config(state=DISABLED)
+        else:
+            window = mainAnswer(goal_path, explored, depth, cost, runtime)
 
 if __name__ == '__main__':
     app = App()
