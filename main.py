@@ -5,7 +5,7 @@ from Answer import mainAnswer
 from BFS.BFS import BFS
 from state.State import State
 from astar.solver import solve
-
+from DFS.DFS import DFS
 
 class App(tk.Tk):
     input = 0
@@ -35,8 +35,9 @@ class App(tk.Tk):
                                             text=self.algorithms[index],
                                             variable=self.x,
                                             value=index,
-                                            padx=40,
+                                            padx=0,
                                             bg='red',
+                                            width= 10,
                                             indicatoron=0,
                                             font=('Impact', 25))
 
@@ -80,8 +81,8 @@ class App(tk.Tk):
             found, explored, runtime, goal_path, depth, cost = bfs.search()
 
         elif choose == 1:
-            pass
-            # found, explored, runtime, goal_path, depth, cost =
+            dfs = DFS(State(self.input))
+            found, explored, runtime, goal_path, depth, cost = dfs.run()
 
         elif choose == 2:
             found, explored, runtime, goal_path, depth, cost = solve(self.input, self.variable)

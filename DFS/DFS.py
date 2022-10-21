@@ -7,6 +7,7 @@ class DFS:
         self.initialState = initialState
         self.parentMap = {}
         self.runTime = 0
+        self.found = False
 
     def run(self):
         startTime = time.time()
@@ -14,7 +15,7 @@ class DFS:
         endTime = time.time()
         self.runTime = (endTime-startTime)
 
-        return self.pathToGoalState(), self.nodesExpanded(), self.getSearchDepth(), self.runTime
+        return self.found, self.nodesExpanded(), self.runTime, self.pathToGoalState(),  self.getSearchDepth(), self.explored[12345678]
 
     # get the path from start state to goal state
     def pathToGoalState(self):
@@ -59,6 +60,7 @@ class DFS:
             # DFS reach to goal state, all done
             if state.state == self.goalState:
                 print("DFS done")
+                self.found = True
                 break
             # get all neighbours of the current state, sort them in reverse order
             neighbours = list(reversed(state.neighbours()))
