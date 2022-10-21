@@ -1,39 +1,41 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
-
-from AI_puzzle_problem.Answer import mainAnswer
-from AI_puzzle_problem.BFS.BFS import BFS
-from AI_puzzle_problem.state.State import State
+from Answer import mainAnswer
+from BFS.BFS import BFS
+from state.State import State
+from astar.solver import solve
 
 
 class App(tk.Tk):
     input = 0
-    algorithms = ['BFS', 'BFS', 'A*']
+    algorithms = ['BFS', 'DFS', 'A*']
 
     def __init__(self):
         super().__init__()
         self.x = IntVar()
-        self.config(background='orange')
+        self.config(background='#83838B')
         self.geometry("440x500")
         self.resizable(False, False)
-        self.title('8 Pazzle solver')
+        self.title('8 Puzzle solver')
         self.frame = Frame(self)
         self.entry = Entry(self.frame, font=('Arial', 25))
         self.enter_button = Button(self.frame,
                                    text="Enter",
                                    command=self.check_input,
-                                   font=("Comic Sans", 20)
+                                   font=("Comic Sans", 20),
+                                   bg = 'lightblue'
                                    )
         self.entry.pack(side=LEFT, expand=True)
         self.enter_button.pack(side=RIGHT)
         self.frame.pack()
+
         for index in range(len(self.algorithms)):
             self.radio_button = Radiobutton(self,
                                             text=self.algorithms[index],
                                             variable=self.x,
                                             value=index,
-                                            padx=25,
+                                            padx=40,
                                             bg='red',
                                             indicatoron=0,
                                             font=('Impact', 25))
@@ -48,6 +50,17 @@ class App(tk.Tk):
                             )
         self.solve.pack()
 
+        options = [
+            "Manhattan",
+            "Euclidian"
+        ]
+
+        self.variable = StringVar(self)
+        self.variable.set(options[0])
+        menu = OptionMenu(self, self.variable, *options)
+        menu.config(state='normal')
+        menu.place(x=60, y=250)
+
     def check_input(self):
         initial = self.entry.get()
         if '9' in initial or len(initial) != 9:
@@ -57,7 +70,6 @@ class App(tk.Tk):
             self.solve.config(state=ACTIVE)
             self.input = int(initial)
 
-
     def find_sol(self):
         found, explored, runtime, goal_path = False, [], 0, []
         depth, cost = 0, 0
@@ -65,16 +77,22 @@ class App(tk.Tk):
         self.entry.delete(0, len(str(self.input)))
         if choose == 0:
             bfs = BFS(State(self.input))
-            found, explored, runtime, goal_path = bfs.search()
-            depth = bfs.get_depth()
-            cost = bfs.get_cost()
+            found, explored, runtime, goal_path, depth, cost = bfs.search()
 
+        elif choose == 1:
+            pass
+            # found, explored, runtime, goal_path, depth, cost =
 
-        if(found == False):
+        elif choose == 2:
+            found, explored, runtime, goal_path, depth, cost = solve(self.input, self.variable)
+            runtime = round(runtime, 6)
+
+        if not found:
             messagebox.showerror(title='error', message="this problem has no solution")
             self.solve.config(state=DISABLED)
         else:
             window = mainAnswer(goal_path, explored, depth, cost, runtime)
+
 
 if __name__ == '__main__':
     app = App()

@@ -1,9 +1,9 @@
 from tkinter import *
 import tkinter as tk
 
-from AI_puzzle_problem.BFS.BFS import BFS
-from AI_puzzle_problem.exploration import Explore
-from AI_puzzle_problem.state.State import State
+from BFS.BFS import BFS
+from exploration import Explore
+from state.State import State
 
 
 class mainAnswer(tk.Tk):
@@ -11,11 +11,11 @@ class mainAnswer(tk.Tk):
 
     def __init__(self, goal_path, explored_states, depth, cost, rtime):
         super().__init__()
-        self.path_to_goal = goal_path           # path to goal
-        self.explored_list = explored_states    # explored states during search
-        self.cost = cost                        #cost of search
-        self.time = rtime                        #run time needed during the search
-        self.depth = depth                      #the depth of the tree
+        self.path_to_goal = goal_path  # path to goal
+        self.explored_list = explored_states  # explored states during search
+        self.cost = cost  # cost of search
+        self.time = rtime  # run time needed during the search
+        self.depth = depth  # the depth of the tree
 
         # root window
         self.config(bg='orange')
@@ -28,7 +28,6 @@ class mainAnswer(tk.Tk):
         self.columnconfigure(2, weight=1)
         self.create_widgets()
 
-
     def create_widgets(self):
         num = self.path_to_goal[self.count]
         display = str(num)
@@ -39,7 +38,7 @@ class mainAnswer(tk.Tk):
         for i in range(3):
             for j in range(3):
                 t = ""
-                if(display[index] != '0'):
+                if display[index] != '0':
                     t = display[index]
 
                 cell = Label(self, text=t, font=("Arial", 15), height=3, width=20)
@@ -97,6 +96,5 @@ class mainAnswer(tk.Tk):
 if __name__ == '__main__':
     bfs = BFS(State(125340678))
     found, explored, time, path = bfs.search()
-
     win = mainAnswer(path, explored, bfs.get_depth(), bfs.get_cost(), time)
     win.mainloop()

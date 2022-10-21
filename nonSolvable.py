@@ -10,16 +10,15 @@ class noSol(tk.Tk):
         self.config(background='orange')
         self.geometry("440x500")
         self.resizable(False, False)
-        self.title('8 Pazzle solver')
+        self.title('8 Puzzle solver')
 
         back_button = Button(self, text="back", font=("Arial", 15))
         back_button.pack(anchor='w')
 
-        label = Label(self, text = "this problem has no solution", font=("Arial", 25), bg = 'red')
+        label = Label(self, text="this problem has no solution", font=("Arial", 25), bg='red')
         label.pack(expand=True)
 
 
-
 if __name__ == '__main__':
-    nosol = noSol(0, 0)
-    nosol.mainloop()
+    no_sol = noSol(0, 0)
+    no_sol.mainloop()

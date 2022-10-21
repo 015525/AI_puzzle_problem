@@ -1,9 +1,9 @@
 from tkinter import *
 import tkinter as tk
 
-from AI_puzzle_problem.state.State import State
+from state.State import State
 
-from AI_puzzle_problem.BFS.BFS import BFS
+from BFS.BFS import BFS
 
 
 class Explore(tk.Toplevel):
@@ -45,13 +45,13 @@ class Explore(tk.Toplevel):
         ex = Button(self, text="exit this page", font=("Arial", 15), command=self.return_to_main)
         ex.grid(column=1, row=3, padx=5, pady=20)
 
-        previous = Button(self, text="previous",font=("Arial", 15), command=self.previous_state)
+        previous = Button(self, text="previous", font=("Arial", 15), command=self.previous_state)
         previous.grid(column=0, row=3, padx=5, pady=20)
 
-        path = Label(self, text="path: " +str(self.count+1) + "\\" +str(len(self.list)), font=("Arial", 15))
+        path = Label(self, text="path: " + str(self.count + 1) + "\\" + str(len(self.list)), font=("Arial", 15))
         path.grid(column=0, row=5, padx=3, pady=10, columnspan=1)
 
-        if self.count >= (len(self.list)-1):
+        if self.count >= (len(self.list) - 1):
             next_button["state"] = "disabled"
 
         if self.count <= 0:
@@ -71,7 +71,7 @@ class Explore(tk.Toplevel):
 
 if __name__ == "__main__":
     bfs = BFS(State(125340678))
-    found, explored,run_time, path = bfs.search()
+    found, explored, run_time, path = bfs.search()
     app = Explore(explored)
 
     app.mainloop()

@@ -6,17 +6,18 @@ class Astar:
     goal = 12345678
     # Storing parent and child [child] -> parent
     parent_map = {}
-    
+    total_cost = 0
     expanded_nodes = []
     max_depth = 0
 
-    def __init__(self, heuristic_obj):
+    def __init__(self, initial_state, heuristic_obj):
         # This set is used side by side with  frontier PQ in a a_star_search() 
         # to keep track of the states in frontier for fast access
         self.frontier_states = set()
         # Used to choose the type of heuristic the user wants the problem to use
         # 1) manhattan 2) euclidian
         self.heuristic_type = heuristic_obj
+        self.initial_state = initial_state
 
     # Calculating total cost at certain node using f(n) = g(n) + h(n)
     def calculate_cost(self, state, cost):
@@ -38,12 +39,15 @@ class Astar:
         return False
 
     # The method implementing A* search Algorithm
-    def a_star_search(self, initial_state):
-        self.calculate_cost(initial_state, 0)
+    def a_star_search(self):
+        self.calculate_cost(self.initial_state, 0)
         frontier = PriorityQueue()
-        frontier.put(comparable_state(initial_state))
-        self.frontier_states.add(initial_state.state)
+
+        frontier.put(comparable_state(self.initial_state))
+        self.frontier_states.add(self.initial_state.state)
         explored = set()
+        self.total_cost = self.initial_state.cost
+        print(self.total_cost)
         while not frontier.empty():
             state = frontier.get().state
             # This means I have already checked this state with lower cost
@@ -53,6 +57,7 @@ class Astar:
             self.frontier_states.remove(state.state)
             explored.add(state.state)
             self.expanded_nodes.append(state)
+            self.total_cost += state.cost
 
             if state.depth > self.max_depth:
                 self.max_depth = state.depth
@@ -76,3 +81,25 @@ class Astar:
                     self.parent_map[i.state] = state.state
 
         return False
+
+    def get_path(self):
+        path = []
+        temp = self.goal
+        while True:
+            path.append(temp)
+            if temp == self.initial_state.state:
+                break
+            temp = self.parent_map[temp]
+
+        path.reverse()
+        return path
+
+    def get_expanded_states(self):
+        lis = []
+        for i in self.expanded_nodes:
+            lis.append(i.state)
+        return lis
+
+    def get_max_depth(self):
+        return self.max_depth
+
