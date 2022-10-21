@@ -1,5 +1,5 @@
 import time
-from state.State import State
+
 
 class DFS:
     def __init__(self, initialState):
@@ -52,7 +52,6 @@ class DFS:
         frontire.append(self.initialState)
         # make initial state parent of it_self
         self.parentMap[self.initialState.state] = self.initialState.state
-        # print(f'herhe      {self.parentMap[self.initialState.state]}')
         # loop over the stack
         while len(frontire) != 0:
             state = frontire.pop()
@@ -64,15 +63,7 @@ class DFS:
             # get all neighbours of the current state, sort them in reverse order
             neighbours = list(reversed(state.neighbours()))
             for neighbour in neighbours:
-                # print(f"len of frontire = {len(frontire)}, and explored = {len(self.explored)}")
                 if neighbour.state not in self.explored and neighbour not in frontire:
                     neighbour.depth = state.depth + 1
                     self.parentMap[neighbour.state] = state.state
                     frontire.append(neighbour)
-
-if __name__ == "__main__":
-    dfs = DFS(State(125340678))
-    dfs.run()
-    print(dfs.nodesExpanded())
-    print(dfs.runTime)
-    print(dfs.getSearchDepth())
