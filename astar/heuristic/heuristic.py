@@ -10,6 +10,9 @@ class manhattan:
         for i in range(9):
             desired_num = temp_state % 10
             temp_state = int(temp_state / 10)
+            if not desired_num :
+                continue
+            #print(desired_num)
             curr_x, curr_y = self.last_puzzle_x - int(i / 3), self.last_puzzle_y - int(i % 3)
             goal_x, goal_y = int(desired_num / 3), int(desired_num % 3)
             total_remained_cost += abs(curr_x - goal_x) + abs(curr_y - goal_y)
@@ -27,6 +30,8 @@ class euclidian:
         for i in range(9):
             desired_num = temp_state % 10
             temp_state = int(temp_state / 10)
+            if not desired_num :
+                continue
             curr_x, curr_y = self.last_puzzle_x - int(i / 3), self.last_puzzle_x - int(i % 3)
             goal_x, goal_y = int(desired_num / 3), int(desired_num % 3)
             total_remained_cost += math.sqrt((curr_x - goal_x) ** 2 + (curr_y - goal_y) ** 2)
@@ -34,6 +39,6 @@ class euclidian:
         return total_remained_cost
 
 
-# if __name__ == "__main__":
-#     aStar = manhattan()
-#     print(aStar.cal(State(125340678)))
+if __name__ == "__main__":
+     aStar = euclidian()
+     print(aStar.cal(State(125340678)))
