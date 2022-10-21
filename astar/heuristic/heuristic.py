@@ -1,5 +1,5 @@
 import math
-
+from state.State import State
 
 class manhattan:
     last_puzzle_x, last_puzzle_y = 2, 2
@@ -33,6 +33,7 @@ class euclidian:
 
         return total_remained_cost
 
+
 # if __name__ == "__main__":
-#     aStar = heuristic()
-#     print(aStar.manhattan_heuristic(310245678))
+#     aStar = manhattan()
+#     print(aStar.cal(State(125340678)))

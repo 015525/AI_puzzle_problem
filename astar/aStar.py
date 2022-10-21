@@ -3,12 +3,6 @@ from astar.priority import comparable_state
 
 
 class Astar:
-    goal = 12345678
-    # Storing parent and child [child] -> parent
-    parent_map = {}
-    total_cost = 0
-    expanded_nodes = []
-    max_depth = 0
 
     def __init__(self, initial_state, heuristic_obj):
         # This set is used side by side with  frontier PQ in a a_star_search() 
@@ -18,6 +12,12 @@ class Astar:
         # 1) manhattan 2) euclidian
         self.heuristic_type = heuristic_obj
         self.initial_state = initial_state
+        self.goal = 12345678
+        # Storing parent and child [child] -> parent
+        self.parent_map = {}
+        self.total_cost = 0
+        self.expanded_nodes = []
+        self.max_depth = 0
 
     # Calculating total cost at certain node using f(n) = g(n) + h(n)
     def calculate_cost(self, state, cost):
@@ -40,14 +40,12 @@ class Astar:
 
     # The method implementing A* search Algorithm
     def a_star_search(self):
-        self.calculate_cost(self.initial_state, 0)
+        self.initial_state.cost = self.calculate_cost(self.initial_state, 0)
         frontier = PriorityQueue()
 
         frontier.put(comparable_state(self.initial_state))
         self.frontier_states.add(self.initial_state.state)
         explored = set()
-        self.total_cost = self.initial_state.cost
-        print(self.total_cost)
         while not frontier.empty():
             state = frontier.get().state
             # This means I have already checked this state with lower cost
@@ -58,7 +56,7 @@ class Astar:
             explored.add(state.state)
             self.expanded_nodes.append(state)
             self.total_cost += state.cost
-
+            print(self.total_cost)
             if state.depth > self.max_depth:
                 self.max_depth = state.depth
 
