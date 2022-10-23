@@ -15,7 +15,11 @@ class DFS:
         endTime = time.time()
         self.runTime = (endTime-startTime)
 
-        return self.found, self.nodesExpanded(), self.runTime, self.pathToGoalState(),  self.getSearchDepth(), self.explored[12345678]
+        goalCost = 0
+        if  self.found:
+            goalCost = self.explored[12345678]
+
+        return self.found, self.nodesExpanded(), self.runTime, self.pathToGoalState(),  self.getSearchDepth(), goalCost
 
     # get the path from start state to goal state
     def pathToGoalState(self):
