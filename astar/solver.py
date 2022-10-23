@@ -16,9 +16,10 @@ def solve(initial_state, heuristic_type):
     end = timer()
     time = end - start
     # print("time =", end - start)
-    path = a.get_path()
-    ex = a.get_expanded_states()
-    a.get_max_depth()
+    
     if ans:
+        path = a.get_path()
+        ex = a.get_expanded_states()
+        a.get_max_depth()
         return ans, ex, time, path, a.max_depth, a.total_cost
     return ans, [], time, [], a.max_depth, a.total_cost
