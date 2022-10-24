@@ -16,6 +16,7 @@ class Astar:
         # Storing parent and child [child] -> parent
         self.parent_map = {}
         self.total_cost = 0
+        self.optimal_cost = 0
         self.expanded_nodes = []
         self.max_depth = 0
 
@@ -61,6 +62,7 @@ class Astar:
                 self.max_depth = state.depth
 
             if self.goal_check(state.state):
+                self.optimal_cost = state.depth
                 return True
 
             # When a neighbour is already in frontier (maybe different cost)
