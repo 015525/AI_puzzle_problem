@@ -11,12 +11,12 @@ class BFS:
         self.frontier = [start_state.state]  # queue to save each new state
         self.start_state = start_state  # the start state from the user
         self.goal_path = []  # save the final goal path
+        self.searched = {start_state.state:0}
         self.explored = []  # save the explored states
         self.max_depth = 0
 
     def search(self):
         start_time = time.time()  # start calculating time
-
         while len(self.frontier) != 0:  # check all unexplored states
 
             cur_state = State(self.frontier.pop(0))  # apply FIFO rule(first input state first out state)
@@ -32,10 +32,10 @@ class BFS:
 
             for i in neighbours:  # go through all the neighbours
 
-                if ((i.state not in self.frontier) and (
-                        i.state not in self.explored)):  # check if it's a new state(didn't show before)
+                if i.state not in self.searched:  # check if it's a new state(didn't show before)
                     self.parents[i.state] = cur_state.state  # save new node parent
                     self.frontier.append(i.state)  # add the new state to the queue
+                    self.searched[i.state] = 1
 
         # if there is no solution found
         end_time = time.time()  # end time of running

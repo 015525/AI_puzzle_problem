@@ -51,10 +51,12 @@ class DFS:
     def __DFS(self):
         # Stack
         frontire = []
+        searched = {}
         # explored states
         self.explored = {}
         # add initial state to stack
         frontire.append(self.initialState)
+        searched[self.initialState.state] = 0
         # make initial state parent of it_self
         self.parentMap[self.initialState.state] = self.initialState.state
         # loop over the stack
@@ -69,7 +71,8 @@ class DFS:
             # get all neighbours of the current state, sort them in reverse order
             neighbours = list(reversed(state.neighbours()))
             for neighbour in neighbours:
-                if neighbour.state not in self.explored and neighbour not in frontire:
+                if neighbour.state not in searched:
                     neighbour.depth = state.depth + 1
                     self.parentMap[neighbour.state] = state.state
                     frontire.append(neighbour)
+                    searched[neighbour.state] = 1
