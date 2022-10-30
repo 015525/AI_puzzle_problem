@@ -99,7 +99,7 @@ class App(tk.Tk):
             found, explored, runtime, goal_path, depth, cost = dfs.run()
 
         elif choose == 2:                           # algorithm is A*
-            found, explored, runtime, goal_path, depth, cost = solve(self.input, self.variable)
+            found, explored, runtime, goal_path, depth, cost = solve(self.input, self.variable.get())
             runtime = round(runtime, 6)
 
         if not found:

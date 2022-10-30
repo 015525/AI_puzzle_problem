@@ -16,7 +16,7 @@ class DFS:
         self.runTime = (endTime-startTime)
 
         goalCost = 0
-        if  self.found:
+        if self.found:
             goalCost = self.explored[12345678]
 
         return self.found, self.nodesExpanded(), self.runTime, self.pathToGoalState(),  self.getSearchDepth(), goalCost
@@ -28,7 +28,7 @@ class DFS:
         child = self.goalState
         path.append(child)
         while True:
-            if self.parentMap[child] == child:
+            if self.parentMap[child] == self.initialState.state:
                 break
             else:
                 path.append(self.parentMap[child])
